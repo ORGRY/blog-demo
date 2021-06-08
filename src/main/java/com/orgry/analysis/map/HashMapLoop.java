@@ -1,7 +1,6 @@
 package com.orgry.analysis.map;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 /**
  * HashMap
@@ -9,21 +8,20 @@ import java.util.UUID;
  * @author 葛飞
  */
 public class HashMapLoop {
+    private HashMap<String, String> map = new HashMap();
 
-
-    private HashMap map = new HashMap();
-
-    public void infiniteRun() {
-        for (int i = 1; i <= 30; i++) {
-            Thread thread = new Thread(() -> {
-                map.put(Thread.currentThread().getName(), UUID.randomUUID().toString().substring(0, 8));
-                System.out.println(map.size());
-            });
-            thread.start();
+    public void hashMapLoop() {
+        for (int i = 0; i < 10000; i++) {
+            new Thread(() -> {
+                for (int j = 0; j < 10000; j++) {
+                    map.put(Thread.currentThread().getName() + "-" + j, String.valueOf(j));
+                }
+            }).start();
         }
+        System.out.println(map.size());
     }
 
     public static void main(String[] args) {
-        new HashMapLoop().infiniteRun();
+        new HashMapLoop().hashMapLoop();
     }
 }
