@@ -11,9 +11,9 @@ public class HashMapLoop {
     private HashMap<String, String> map = new HashMap();
 
     public void hashMapLoop() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 500; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 10000; j++) {
+                for (int j = 0; j < 500; j++) {
                     map.put(Thread.currentThread().getName() + "-" + j, String.valueOf(j));
                 }
             }).start();
